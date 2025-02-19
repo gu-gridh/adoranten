@@ -7,9 +7,10 @@ from wagtail.fields import RichTextField
 from wagtail.models import (
     Page
 )
+from wagtail_headless_preview.models import HeadlessMixin
 
 # Create your models here.
-class StandardPage(Page):
+class StandardPage(HeadlessMixin, Page):
     """
     Standard default page
     """

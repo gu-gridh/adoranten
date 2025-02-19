@@ -3,3 +3,4 @@ wagtail>=6.4,<6.5
 python-dotenv>=1.0.1, <1.1
 psycopg>=3.1, <4.0
 django-cors-headers>=4.7, <4.8 
+wagtail-headless-preview>=0.8, <1
