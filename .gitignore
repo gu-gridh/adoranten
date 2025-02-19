@@ -1,1 +1,11 @@
+# Environments
 .env
+
+# Django
+*.log
+*.pyc
+__pychache__
+migrations
+
+# Deployment 
+*.sh
