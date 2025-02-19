@@ -22,6 +22,10 @@ DATABASES = {
     }
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
+
 try:
     from .local import *
 except ImportError:
