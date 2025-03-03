@@ -9,3 +9,6 @@ migrations
 
 # Deployment 
 *.sh
+
+# media files
+adoranten/media
