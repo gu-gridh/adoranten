@@ -10,6 +10,18 @@ $ conda env update --file environment.yml
 $ conda activate adoranten
 ```
 
+Create a .env file with contents similar to this:
+```bash
+SECRET_KEY="<your-secret-key>"
+DB_NAME="adoranten"
+DB_USER="<user>"
+DB_PASS="<password>"
+DB_LOCAL_PASS="<local-password>"
+LOCAL_HOST="localhost"
+HOST="<gridh07>"
+PORT="<postgres-port>"
+```
+
 Set up a local postgres database. Populate it by running migrations and create a superuser for it.
 ```bash
 $ cd adoranten
