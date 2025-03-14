@@ -9,7 +9,7 @@ from wagtail.models import Page
 from wagtail_headless_preview.models import HeadlessMixin
 
 class Publications(HeadlessMixin, Page):
-    parent_page_types = ["wagtailcore.Page"]
+    parent_page_types = ["home.HomePage"]
     subpage_types = ["journal.IssuePage"]
 
 class IssuePage(HeadlessMixin, Page):

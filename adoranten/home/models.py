@@ -18,6 +18,7 @@ class HomePage(HeadlessMixin, Page):
         "home.AboutPage",
         "home.SearchPage",
         "home.AccessibilityPage",
+        "journal.Publications",
     ]
 
     api_fields = [
