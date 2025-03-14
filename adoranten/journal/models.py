@@ -27,6 +27,7 @@ class IssuePage(HeadlessMixin, Page):
         upload_to='journal/issues/',
         null=False,
         blank=False,
+        default="",
         help_text="Upload the PDF for the entire issue."
     )
 
@@ -70,6 +71,7 @@ class ArticlePage(HeadlessMixin, Page):
         upload_to='journal/articles/',
         null=False,
         blank=False,
+        default="",
         help_text="Upload the PDF for this specific article."
     )
 
