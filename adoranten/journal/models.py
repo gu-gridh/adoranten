@@ -7,6 +7,11 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail_headless_preview.models import HeadlessMixin
 
+class Publications(HeadlessMixin, Page):
+    parent_page_types = ["wagtailcore.Page"]
+
+    subpage_types = ["journal.IssuePage"]
+
 class IssuePage(HeadlessMixin, Page):
     issue_name = models.CharField(max_length=255)
     issue_year = models.IntegerField()
@@ -30,6 +35,10 @@ class IssuePage(HeadlessMixin, Page):
         FieldPanel("cover_image"),
         FieldPanel("pdf_file"),
     ]
+
+    
+    # IssuePage under Publications
+    parent_page_types = ["journal.Publications"]
 
     # This page may have ArticlePages as children
     subpage_types = ['ArticlePage']

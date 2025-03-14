@@ -15,8 +15,6 @@ class HomePage(HeadlessMixin, Page):
         FieldPanel("description"),
     ]
 
-    subpage_types = ['journal.IssuePage']
-
     api_fields = [
         APIField("description"),
     ]
