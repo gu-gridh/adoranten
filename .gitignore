@@ -10,5 +10,6 @@ migrations
 # Deployment 
 *.sh
 
-# media files
+# media and static files
 adoranten/media
+adoranten/static
