@@ -80,6 +80,8 @@ class ArticlePage(HeadlessMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel("image"),
         FieldPanel("article_description"),
+        FieldPanel("author"),
+        FieldPanel("page_range"),
         FieldPanel("pdf_file"),
     ]
 
