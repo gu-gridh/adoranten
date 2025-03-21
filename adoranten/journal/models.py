@@ -62,11 +62,13 @@ class ArticlePage(HeadlessMixin, Page):
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
-        blank=False,
+        blank=True,
         related_name='+'
     )
     article_description = RichTextField(blank=True)
-    
+    author = models.CharField(blank=True)
+    page_range = models.CharField(blank=True)
+
     pdf_file = models.FileField(
         upload_to='journal/articles/',
         null=False,
@@ -88,11 +90,11 @@ class ArticlePage(HeadlessMixin, Page):
         APIField("image"),
         APIField("article_description"),
         APIField("pdf_file"),
+        APIField("author"),
+        APIField("page_range"),
     ]
 
     def clean(self):
-        """Ensure image and pdf_file are not empty."""
-        if not self.image:
-            raise ValidationError({'image': "An image is required."})
+        """Ensure pdf_file are not empty."""
         if not self.pdf_file:
             raise ValidationError({'pdf_file': "A PDF file is required."})
