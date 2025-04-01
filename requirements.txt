@@ -4,4 +4,4 @@ python-dotenv>=1.0.1, <1.1
 psycopg[binary,pool]>=3.1, <4.0
 django-cors-headers>=4.7, <4.8 
 wagtail-headless-preview>=0.8, <1
-gunicorn>=22.0.0, <22.1
+gunicorn>=23.0.0, <23.1
