@@ -10,10 +10,17 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
 )
 from wagtail.api import APIField
-from wagtail import blocks
+from wagtail import blocks, images
 from wagtail_headless_preview.models import HeadlessMixin
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
+from rest_framework import serializers
+
+
+class ImageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = images.get_image_model()
+        fields = ['title', 'file', 'width', 'height']
 
 
 class APIPageChooserBlock(blocks.PageChooserBlock):
@@ -21,7 +28,8 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
         if value:
             return {
                 "id": value.id,
-                "title": value.title
+                "title": value.title,
+                "cover_image": ImageSerializer(context=context).to_representation(value.cover_image),
             }
 
 

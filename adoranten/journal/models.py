@@ -8,13 +8,15 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail_headless_preview.models import HeadlessMixin
 
+
 class Publications(HeadlessMixin, Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["journal.IssuePage"]
 
+
 class IssuePage(HeadlessMixin, Page):
     issue_year = models.IntegerField()
-    
+
     cover_image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
@@ -33,7 +35,7 @@ class IssuePage(HeadlessMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("issue_year"),
-        FieldPanel("cover_image"), 
+        FieldPanel("cover_image"),
         FieldPanel("pdf_file"),
     ]
 
@@ -54,8 +56,9 @@ class IssuePage(HeadlessMixin, Page):
         if not self.cover_image:
             raise ValidationError({'cover_image': "An image is required."})
 
+
 class ArticlePage(HeadlessMixin, Page):
-    image = models.ForeignKey(
+    cover_image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
@@ -76,7 +79,7 @@ class ArticlePage(HeadlessMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel("image"),
+        FieldPanel("cover_image"),
         FieldPanel("article_description"),
         FieldPanel("author"),
         FieldPanel("page_range"),
@@ -88,7 +91,7 @@ class ArticlePage(HeadlessMixin, Page):
     subpage_types = []                 # No children
 
     api_fields = [
-        APIField("image"),
+        APIField("cover_image"),
         APIField("article_description"),
         APIField("pdf_file"),
         APIField("author"),
