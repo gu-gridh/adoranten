@@ -26,7 +26,7 @@ class IssuePage(HeadlessMixin, Page):
     pdf_file = models.FileField(
         upload_to='journal/issues/',
         null=False,
-        blank=False,
+        blank=True,
         default="",
         help_text="Upload the PDF for the entire issue."
     )
@@ -50,12 +50,9 @@ class IssuePage(HeadlessMixin, Page):
     ]
 
     def clean(self):
-        """Ensure cover_image and pdf_file are not empty."""
+        """Ensure cover_image is not empty."""
         if not self.cover_image:
             raise ValidationError({'cover_image': "An image is required."})
-        if not self.pdf_file:
-            raise ValidationError({'pdf_file': "A PDF file is required."})
-
 
 class ArticlePage(HeadlessMixin, Page):
     image = models.ForeignKey(
@@ -68,6 +65,7 @@ class ArticlePage(HeadlessMixin, Page):
     article_description = RichTextField(blank=True)
     author = models.CharField(blank=True)
     page_range = models.CharField(blank=True)
+    citation = models.TextField(blank=True)
 
     pdf_file = models.FileField(
         upload_to='journal/articles/',
@@ -83,6 +81,7 @@ class ArticlePage(HeadlessMixin, Page):
         FieldPanel("author"),
         FieldPanel("page_range"),
         FieldPanel("pdf_file"),
+        FieldPanel("citation"),
     ]
 
     parent_page_types = ['IssuePage']  # Must live under an IssuePage
@@ -94,6 +93,7 @@ class ArticlePage(HeadlessMixin, Page):
         APIField("pdf_file"),
         APIField("author"),
         APIField("page_range"),
+        APIField("citation"),
     ]
 
     def clean(self):
