@@ -198,3 +198,5 @@ WAGTAIL_HEADLESS_PREVIEW = {
     "REDIRECT_ON_PREVIEW": False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism
     "ENFORCE_TRAILING_SLASH": False,  # set to False in order to disable the trailing slash enforcement
 }
+
+WAGTAILAPI_LIMIT_MAX = 200
