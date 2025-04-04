@@ -29,7 +29,7 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
             return {
                 "id": value.id,
                 "title": value.title,
-                "cover_image": ImageSerializer(context=context).to_representation(value.cover_image),
+                "image": ImageSerializer(context=context).to_representation(value.image),
             }
 
 

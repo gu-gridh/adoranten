@@ -17,7 +17,7 @@ class Publications(HeadlessMixin, Page):
 class IssuePage(HeadlessMixin, Page):
     issue_year = models.IntegerField()
 
-    cover_image = models.ForeignKey(
+    image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
@@ -35,7 +35,7 @@ class IssuePage(HeadlessMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("issue_year"),
-        FieldPanel("cover_image"),
+        FieldPanel("image"),
         FieldPanel("pdf_file"),
     ]
 
@@ -47,18 +47,18 @@ class IssuePage(HeadlessMixin, Page):
 
     api_fields = [
         APIField("issue_year"),
-        APIField("cover_image"),
+        APIField("image"),
         APIField("pdf_file"),
     ]
 
     def clean(self):
-        """Ensure cover_image is not empty."""
-        if not self.cover_image:
-            raise ValidationError({'cover_image': "An image is required."})
+        """Ensure image is not empty."""
+        if not self.image:
+            raise ValidationError({'image': "An image is required."})
 
 
 class ArticlePage(HeadlessMixin, Page):
-    cover_image = models.ForeignKey(
+    image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
@@ -79,7 +79,7 @@ class ArticlePage(HeadlessMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel("cover_image"),
+        FieldPanel("image"),
         FieldPanel("article_description"),
         FieldPanel("author"),
         FieldPanel("page_range"),
@@ -91,7 +91,7 @@ class ArticlePage(HeadlessMixin, Page):
     subpage_types = []                 # No children
 
     api_fields = [
-        APIField("cover_image"),
+        APIField("image"),
         APIField("article_description"),
         APIField("pdf_file"),
         APIField("author"),
