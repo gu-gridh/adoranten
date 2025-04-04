@@ -141,3 +141,12 @@ class FormPage(AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
+
+    api_fields = [
+        APIField("intro"),
+        APIField("thank_you_text"),
+        APIField("from_address"),
+        APIField("to_address"),
+        APIField("subject"),
+        APIField("form_fields"),
+    ]
