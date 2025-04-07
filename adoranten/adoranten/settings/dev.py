@@ -30,6 +30,15 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_URLS_REGEX = r"^/api/v2/"
 
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": "http://localhost:5173",
+    },  # defaults to an empty dict. You must at the very least define the default client URL.
+    "SERVE_BASE_URL": None,  # can be used for HeadlessServeMixin
+    "REDIRECT_ON_PREVIEW": False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism
+    "ENFORCE_TRAILING_SLASH": False,  # set to False in order to disable the trailing slash enforcement
+}
+
 try:
     from .local import *
 except ImportError:
