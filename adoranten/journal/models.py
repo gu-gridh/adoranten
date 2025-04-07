@@ -68,7 +68,7 @@ class ArticlePage(HeadlessMixin, Page):
     article_description = RichTextField(blank=True)
     author = models.CharField(blank=True)
     page_range = models.CharField(blank=True)
-    citation = models.TextField(blank=True)
+    citation = models.RichTextField(blank=True)
 
     pdf_file = models.FileField(
         upload_to='journal/articles/',
