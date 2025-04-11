@@ -34,15 +34,14 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
 
 
 class HomePage(HeadlessMixin, Page):
-    description = RichTextField(blank=True, help_text="Description of the website.")
-    latest_issues = StreamField([
+    description = RichTextField(blank=True, help_text="Description of the website.", features=['h2', 'h3', 'bold', 'italic', 'link'])
+    latest_issue = StreamField([
         ("heading", blocks.CharBlock(form_classname="title")),
-        ("issue_list", blocks.ListBlock(
-            (APIPageChooserBlock(page_type="journal.IssuePage")), min_num=3, max_num=3)),
+        ("issue", APIPageChooserBlock(page_type="journal.IssuePage")),
     ], blank=True,
        block_counts={
        "heading": {"max_num": 1},
-       "issue_list": {"max_num": 1},
+       "issue": {"max_num": 1},
     })
     article_highlights = StreamField([
         ("heading", blocks.CharBlock(form_classname="title")),
@@ -56,7 +55,7 @@ class HomePage(HeadlessMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
-        FieldPanel("latest_issues"),
+        FieldPanel("latest_issue"),
         FieldPanel("article_highlights"),
     ]
 
@@ -70,13 +69,13 @@ class HomePage(HeadlessMixin, Page):
 
     api_fields = [
         APIField("description"),
-        APIField("latest_issues"),
+        APIField("latest_issue"),
         APIField("article_highlights"),
     ]
 
 
 class AboutPage(HeadlessMixin, Page):
-    description = RichTextField(blank=True, help_text="About page description.")
+    description = RichTextField(blank=True, help_text="About page description.", features=['h2', 'h3', 'bold', 'italic', 'link'])
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
@@ -91,7 +90,7 @@ class AboutPage(HeadlessMixin, Page):
 
 
 class SearchPage(HeadlessMixin, Page):
-    description = RichTextField(blank=True, help_text="Search page description.")
+    description = RichTextField(blank=True, help_text="Search page description.", features=['h2', 'h3', 'bold', 'italic', 'link'])
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
@@ -106,7 +105,7 @@ class SearchPage(HeadlessMixin, Page):
 
 
 class AccessibilityPage(HeadlessMixin, Page):
-    description = RichTextField(blank=True, help_text="Accessibility page description.")
+    description = RichTextField(blank=True, help_text="Accessibility page description.", features=['h2', 'h3', 'bold', 'italic', 'link'])
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
@@ -125,8 +124,8 @@ class FormField(AbstractFormField):
 
 
 class FormPage(AbstractEmailForm):
-    intro = RichTextField(blank=True)
-    thank_you_text = RichTextField(blank=True)
+    intro = RichTextField(blank=True, features=['h2', 'h3', 'bold', 'italic', 'link'])
+    thank_you_text = RichTextField(blank=True, features=['h2', 'h3', 'bold', 'italic', 'link'])
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
