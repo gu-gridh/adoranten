@@ -28,6 +28,7 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
         if value:
             return {
                 "id": value.id,
+                "issue_id": value.get_parent().id,
                 "title": value.title,
                 "image": ImageSerializer(context=context).to_representation(value.image),
             }
