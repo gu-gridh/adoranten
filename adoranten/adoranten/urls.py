@@ -5,15 +5,16 @@ from django.contrib import admin
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-
 from search import views as search_views
+from journal import views as journal_views
 from .api import api_router
+
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
-    # path("wagtail/", include(wagtailadmin_urls)),
     path("wagtail/documents/", include(wagtaildocs_urls)),
     path("wagtail/search/", search_views.search, name="search"),
+    path("wagtail/api/v2/articles/", journal_views.ArticleListView.as_view(), name="articles-list"),
     path("wagtail/api/v2/", api_router.urls),
     path("wagtail/", include(wagtailadmin_urls)),
 ]

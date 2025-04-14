@@ -7,6 +7,9 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail_headless_preview.models import HeadlessMixin
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 
 
 class Publications(HeadlessMixin, Page):
@@ -57,7 +60,13 @@ class IssuePage(HeadlessMixin, Page):
             raise ValidationError({'image': "An image is required."})
 
 
+class ArticlePageTag(TaggedItemBase):
+    content_object = ParentalKey('journal.ArticlePage', on_delete=models.CASCADE, related_name='tagged_items')
+
+
 class ArticlePage(HeadlessMixin, Page):
+    tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
+
     image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
@@ -85,6 +94,7 @@ class ArticlePage(HeadlessMixin, Page):
         FieldPanel("page_range"),
         FieldPanel("pdf_file"),
         FieldPanel("citation"),
+        FieldPanel('tags'),
     ]
 
     parent_page_types = ['IssuePage']  # Must live under an IssuePage
@@ -97,6 +107,7 @@ class ArticlePage(HeadlessMixin, Page):
         APIField("author"),
         APIField("page_range"),
         APIField("citation"),
+        APIField("tags"),
     ]
 
     def clean(self):
