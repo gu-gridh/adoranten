@@ -11,6 +11,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+
 class Publications(HeadlessMixin, Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["journal.IssuePage"]
@@ -58,24 +59,10 @@ class IssuePage(HeadlessMixin, Page):
         if not self.image:
             raise ValidationError({'image': "An image is required."})
 
+
 class ArticlePageTag(TaggedItemBase):
     content_object = ParentalKey('journal.ArticlePage', on_delete=models.CASCADE, related_name='tagged_items')
 
-class ArticleIndexPage(Page):
-    ...
-    def get_context(self, request):
-        context = super().get_context(request)
-
-        # Get article entries
-        article_entries = ArticlePage.objects.child_of(self).live()
-
-        # Filter by tag
-        tag = request.GET.get('tag')
-        if tag:
-            article_entries = article_entries.filter(tags__name=tag)
-
-        context['article_entries'] = article_entries
-        return context
 
 class ArticlePage(HeadlessMixin, Page):
     tags = ClusterTaggableManager(through=ArticlePageTag, blank=True)
