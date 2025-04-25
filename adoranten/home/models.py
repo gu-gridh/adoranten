@@ -30,6 +30,7 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
                 "id": value.id,
                 "issue_id": value.get_parent().id,
                 "title": value.title,
+                "description": value.description,
                 "image": ImageSerializer(context=context).to_representation(value.image),
             }
 

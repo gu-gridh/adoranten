@@ -18,6 +18,7 @@ class Publications(HeadlessMixin, Page):
 
 
 class IssuePage(HeadlessMixin, Page):
+    description = RichTextField(blank=True, features=['h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'hr', 'link'])
     issue_year = models.IntegerField()
 
     image = models.ForeignKey(
@@ -74,7 +75,7 @@ class ArticlePage(HeadlessMixin, Page):
         blank=True,
         related_name='+'
     )
-    article_description = RichTextField(blank=True, features=['h3', 'bold', 'italic', 'link'])
+    description = RichTextField(blank=True, features=['h3', 'bold', 'italic', 'link'])
     author = models.CharField(blank=True)
     page_range = models.CharField(blank=True)
     citation = RichTextField(blank=True, features=['bold', 'italic', 'link'])
@@ -89,7 +90,7 @@ class ArticlePage(HeadlessMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("image"),
-        FieldPanel("article_description"),
+        FieldPanel("description"),
         FieldPanel("author"),
         FieldPanel("page_range"),
         FieldPanel("pdf_file"),
@@ -102,7 +103,7 @@ class ArticlePage(HeadlessMixin, Page):
 
     api_fields = [
         APIField("image"),
-        APIField("article_description"),
+        APIField("description"),
         APIField("pdf_file"),
         APIField("author"),
         APIField("page_range"),
