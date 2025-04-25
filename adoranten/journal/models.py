@@ -39,6 +39,7 @@ class IssuePage(HeadlessMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("issue_year"),
+        FieldPanel("description"),
         FieldPanel("image"),
         FieldPanel("pdf_file"),
     ]
@@ -51,6 +52,7 @@ class IssuePage(HeadlessMixin, Page):
 
     api_fields = [
         APIField("issue_year"),
+        APIField("description"),
         APIField("image"),
         APIField("pdf_file"),
     ]
