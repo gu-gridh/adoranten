@@ -1,8 +1,8 @@
 # home/models.py
-from wagtail.models import Page
-from wagtail.fields import RichTextField, StreamField
 from django.db import models
 from modelcluster.fields import ParentalKey
+from rest_framework import serializers
+from wagtail import blocks, images
 from wagtail.admin.panels import (
     FieldPanel,
     FieldRowPanel,
@@ -10,11 +10,11 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
 )
 from wagtail.api import APIField
-from wagtail import blocks, images
-from wagtail_headless_preview.models import HeadlessMixin
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
-from rest_framework import serializers
+from wagtail.models import Page
+from wagtail.fields import RichTextField, StreamField
+from wagtail_headless_preview.models import HeadlessMixin
 
 
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
@@ -136,7 +136,7 @@ class FormPage(AbstractEmailForm):
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
-                FieldPanel('from_address'),
+                FieldPanel('from_address', read_only=True),
                 FieldPanel('to_address'),
             ]),
             FieldPanel('subject'),
@@ -146,8 +146,5 @@ class FormPage(AbstractEmailForm):
     api_fields = [
         APIField("intro"),
         APIField("thank_you_text"),
-        APIField("from_address"),
-        APIField("to_address"),
-        APIField("subject"),
         APIField("form_fields"),
     ]

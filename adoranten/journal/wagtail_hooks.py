@@ -14,4 +14,5 @@ class TagsSnippetViewSet(SnippetViewSet):
     list_display = ["name", "slug"]
     search_fields = ("name",)
 
+
 register_snippet(TagsSnippetViewSet)
