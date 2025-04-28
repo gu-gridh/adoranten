@@ -125,7 +125,7 @@ class FormField(AbstractFormField):
     page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
-class FormPage(AbstractEmailForm):
+class FormPage(HeadlessMixin, AbstractEmailForm):
     intro = RichTextField(blank=True, features=['h2', 'h3', 'bold', 'italic', 'link'])
     thank_you_text = RichTextField(blank=True, features=['h2', 'h3', 'bold', 'italic', 'link'])
 
