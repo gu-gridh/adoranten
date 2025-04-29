@@ -132,7 +132,7 @@ class FormPage(HeadlessMixin, AbstractEmailForm):
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields', label="Form fields", max_num=4),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
