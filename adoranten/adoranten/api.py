@@ -1,5 +1,6 @@
 # api.py
 from django.contrib.contenttypes.models import ContentType
+from rest_framework.response import Response
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -9,6 +10,7 @@ from wagtail_headless_preview.models import PagePreview
 
 # Create the router. "wagtailapi" is the URL namespace
 api_router = WagtailAPIRouter('wagtailapi')
+
 
 class PagePreviewAPIViewSet(PagesAPIViewSet):
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union(

@@ -11,4 +11,4 @@ class ArticlePageSerializer(PageSerializer):
     class Meta:
         model = ArticlePage
         fields = ['id', 'title', 'pdf_file', 'image',
-                  'author', 'page_range', 'citation', 'tags']
+                  'author', 'page_range', 'citation', 'tags', 'issue_id']

@@ -111,7 +111,12 @@ class ArticlePage(HeadlessMixin, Page):
         APIField("page_range"),
         APIField("citation"),
         APIField("tags"),
+        APIField("issue_id")
     ]
+
+    @property
+    def issue_id(self):
+        return self.get_parent().id if self.get_parent() else None
 
     def clean(self):
         """Ensure pdf_file are not empty."""
