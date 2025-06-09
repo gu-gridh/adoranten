@@ -14,5 +14,3 @@ migrations
 # media and static files
 adoranten/media
 adoranten/static
-
-adoranten/journal/management/commands
