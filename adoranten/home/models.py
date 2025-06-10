@@ -26,12 +26,16 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class APIPageChooserBlock(blocks.PageChooserBlock):
     def get_api_representation(self, value, context=None):
         if value:
+            if value.image:
+                image = ImageSerializer(context=context).to_representation(value.image)
+            else:
+                image = {}
             return {
                 "id": value.id,
                 "issue_id": value.get_parent().id,
                 "title": value.title,
                 "description": value.description,
-                "image": ImageSerializer(context=context).to_representation(value.image),
+                "image": image
             }
 
 
