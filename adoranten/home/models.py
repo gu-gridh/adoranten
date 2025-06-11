@@ -23,9 +23,22 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['title', 'file', 'width', 'height']
 
 
-class APIPageChooserBlock(blocks.PageChooserBlock):
+class APIPageChooserBlockIssues(blocks.PageChooserBlock):
     def get_api_representation(self, value, context=None):
         if value:
+            return {
+                "id": value.id,
+                "issue_id": value.get_parent().id,
+                "title": value.title,
+                "description": value.description,
+                "image": ImageSerializer(context=context).to_representation(value.image)
+            }
+
+
+class APIPageChooserBlockArticle(blocks.PageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        if value:
+            # image is not mandatory for articles
             if value.image:
                 image = ImageSerializer(context=context).to_representation(value.image)
             else:
@@ -35,6 +48,7 @@ class APIPageChooserBlock(blocks.PageChooserBlock):
                 "issue_id": value.get_parent().id,
                 "title": value.title,
                 "description": value.description,
+                "tags": [tag.name for tag in value.tags.all()],
                 "image": image
             }
 
@@ -43,7 +57,7 @@ class HomePage(HeadlessMixin, Page):
     description = RichTextField(blank=True, help_text="Description of the website.", features=['h2', 'h3', 'bold', 'italic', 'link'])
     latest_issue = StreamField([
         ("heading", blocks.CharBlock(form_classname="title")),
-        ("issue", APIPageChooserBlock(page_type="journal.IssuePage")),
+        ("issue", APIPageChooserBlockIssues(page_type="journal.IssuePage")),
     ], blank=True,
        block_counts={
        "heading": {"max_num": 1},
@@ -52,7 +66,7 @@ class HomePage(HeadlessMixin, Page):
     article_highlights = StreamField([
         ("heading", blocks.CharBlock(form_classname="title")),
         ("article_list", blocks.ListBlock(
-            (APIPageChooserBlock(page_type="journal.ArticlePage")), min_num=3, max_num=3)),
+            (APIPageChooserBlockArticle(page_type="journal.ArticlePage")), min_num=3, max_num=3)),
     ], blank=True,
        block_counts={
        "heading": {"max_num": 1},
