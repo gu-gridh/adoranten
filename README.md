@@ -1,5 +1,6 @@
 # Adoranten
-Repository for Adoranten. Nicer text tbc
+Repository for Adoranten. The project is not used in a live version. 
+Therefore the project was archived.
 
 ## Local Installation
 
